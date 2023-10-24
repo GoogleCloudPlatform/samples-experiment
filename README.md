@@ -1,26 +1,29 @@
-# Project Title
+# Samples Experiment
 
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=GITHUB_URL)
+*This repository is an experiment in how using a mono-repo might help or hinder Cloud Samples hosting, maintenance, & contribution.*
 
-*Description*
+> **🧪 Experiment:** This repository is not for use except as part of researching the potential impacts of using a monorepo for sample hosting. Sample code found in this repository during the experiment is not maintained.
 
-> **🧪 Preview:** Any notes about stability or launch stage.
+## Finding Cloud Samples
 
-## Features
+If you found this repository while looking for sample code on working with Google Cloud, we apologize for the inconvenience! A public repository is the only way for us to have an accurate experiment.
 
-## Getting Started
+Most Cloud Samples are hosted in the following repositories:
 
-### Prerequisites
+* [.NET](https://github.com/GoogleCloudPlatform/dotnet-docs-samples)
+* [Go](https://github.com/GoogleCloudPlatform/golang-samples)
+* [Java](https://github.com/GoogleCloudPlatform/java-docs-samples)
+* [Node.js](https://github.com/GoogleCloudPlatform/nodejs-docs-samples)
+* [PHP](https://github.com/GoogleCloudPlatform/php-docs-samples)
+* [Python](https://github.com/GoogleCloudPlatform/python-docs-samples)
+* [Ruby](https://github.com/GoogleCloudPlatform/ruby-docs-samples)
+* [Terraform](https://github.com/GoogleCloudPlatform/terraform-docs-samples)
+
+You can also find samples via the [Cloud Samples search page](https://cloud.google.com/docs/samples).
 
 ## Contributing
 
-Contributions to this library are always welcome and highly encouraged.
-
-See [CONTRIBUTING](CONTRIBUTING.md) for more information how to get started.
-
-Please note that this project is released with a Contributor Code of Conduct. By participating in
-this project you agree to abide by its terms. See [Code of Conduct](CODE_OF_CONDUCT.md) for more
-information.
+Contributions to this repository are limited to folks collaborating with us on the experiment.
 
 ## License
 
