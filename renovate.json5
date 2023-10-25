@@ -35,6 +35,11 @@
   "dependencyDashboardLabels": [
     "type: process",
   ],
+
+  "labels": [
+    "automerge",
+  ],
+
   // https://docs.renovatebot.com/configuration-options/#prbodynotes
   "prBodyNotes": [
     "Reviewer is responsible for dependency update. Ensure adequate automated",
@@ -45,21 +50,17 @@
     // Report impact of a dependency update via PR label.
     {
       "matchUpdateTypes": ["patch"],
-       "labels": ["semver: patch"],
+      "extends": ["schedule:monthly"],
+      "labels": ["semver: patch"],
     },
     {
       "matchUpdateTypes": ["minor"],
-       "labels": ["semver: minor"],
+      "extends": ["schedule:quarterly"],
+      "labels": ["semver: minor"],
     },
     {
       "matchUpdateTypes": ["major"],
-       "labels": ["semver: major"],
-    },
-
-    // Language-specific behaviors.
-    {
-      "matchLanguages": ["go"],
-      "postUpdateOptions": ["gomodTidy"],
+      "labels": ["semver: major"],
     },
 
     // Tooling & Runtime behaviors.
@@ -77,43 +78,35 @@
        "pinDigests": true,
     },
 
-    // Language groupings.
-    // These are separated to facilitate PR review by single-language experts.
     {
-      "groupName": "go-nonmajor",
-      "matchLanguages": ["go"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchCategories": ["go"],
+      "extends": [
+        "local>.samplesplatform/renovate/go.json5",
+      ],
     },
     {
-      "groupName": "python-nonmajor",
-      "matchLanguages": ["python"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchCategories": ["python"],
+      "extends": [
+        "local>.samplesplatform/renovate/python.json5",
+      ],
     },
     {
-      "groupName": "java-nonmajor",
-      "matchLanguages": ["java"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchCategories": ["java"],
+      "extends": [
+        "local>.samplesplatform/renovate/java.json5",
+      ],
     },
     {
-      "groupName": "js-nonmajor",
-      "matchLanguages": ["js"],
-      "matchUpdateTypes": ["minor", "patch"],
-    },
-    {
-      "groupName": "nodejs-nonmajor",
-      "matchLanguages": ["node"],
-      "matchUpdateTypes": ["minor", "patch"],
-    },
-    {
-      "groupName": "npm-dev",
-      "matchManagers": ["npm"],
-      "matchDepTypes": ["devDependencies"],
-      "separateMajorMinor": false,
-    },
-    {
-      "groupName": "Terraform",
       "matchManagers": ["terraform"],
-      "separateMajorMinor": false,
+      "extends": [
+        "local>.samplesplatform/renovate/terraform.json5",
+      ],
+    },
+    {
+      "matchCategories": ["js", "node"],
+      "extends": [
+        "local>.samplesplatform/renovate/javascript.json5",
+      ],
     },
 
     // Updating coupled ecosystems.
@@ -124,11 +117,6 @@
         "@playwright/test",
         "mcr.microsoft.com/playwright",
       ],
-    },
-    {
-      "groupName": "OpenTelemetry",
-      "matchLanguages": ["python"],
-      "matchPackagePrefixes": ["opentelemetry-"],
     },
   ],
 }

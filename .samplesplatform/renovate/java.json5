@@ -1,0 +1,199 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "packageRules": [
+    {
+      "groupName": "Java --nonmajor",
+      "matchUpdateTypes": ["minor", "patch"],
+    },
+    {
+      "matchPackagePatterns": [
+        "^com.fasterxml.jackson.core:"
+      ],
+      "groupName": "Java - Jackson core packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "^com.google.appengine:"
+      ],
+      "groupName": "Java - AppEngine packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "^com.google.cloud.bigtable:"
+      ],
+      "groupName": "Java - Bigtable packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "^com.google.cloud.sql:"
+      ],
+      "groupName": "Java - Cloud SQL connectors"
+    },
+    {
+      "matchPackagePrefixes": [
+        "com.google"
+      ],
+      "allowedVersions": "!/.+-sp\\.[0-9]+$/"
+    },
+    {
+      "matchPackagePatterns": [
+        "^org.apache.beam:"
+      ],
+      "groupName": "Java - Apache Beam packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "io.grpc:(?:protoc-gen-)?grpc-*"
+      ],
+      "groupName": "Java - gRPC packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "^org.eclipse.jetty:"
+      ],
+      "groupName": "Java - Jetty packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "^io.micronaut(?:\.validation)?:"
+      ],
+      "groupName": "Java - Micronaut packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "^io.quarkus:"
+      ],
+      "groupName": "Java - Quarkus packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "^io.vertx:"
+      ],
+      "groupName": "Java - Vertx packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "^io.opencensus:"
+      ],
+      "groupName": "Java - OpenCensus packages"
+    },
+    {
+      "matchPackagePatterns": [
+        "^org.slf4j:"
+      ],
+      "groupName": "Java - SLF4J packages"
+    },
+    {
+      "matchPackageNames": [
+        "com.microsoft.sqlserver:mssql-jdbc"
+      ],
+      "allowedVersions": "/.+jre8.?/"
+    },
+    {
+      "matchPackagePatterns": [
+        "scala"
+      ],
+      "enabled": false
+    },
+    {
+      "matchPackagePatterns": [
+        "^spark-sql"
+      ],
+      "enabled": false
+    },
+    {
+      "matchPackagePatterns": [
+        "^jackson-module-scala"
+      ],
+      "enabled": false
+    },
+    {
+      "matchPackagePatterns": [
+        "^io.ktor:",
+        "^com.amazonaws:"
+      ],
+      "schedule": [
+        "before 3am on the first day of the month"
+      ]
+    },
+    {
+      "matchPackagePatterns": [
+        "org.springframework.boot"
+      ],
+      "matchCurrentVersion": "!/.*[SNAPSHOT | M]/"
+    },
+    {
+      "matchPackageNames": [
+        "com.google.apis:google-api-services-dataflow"
+      ],
+      "enabled": false,
+      "description": "@anguillanneuf: This package is no longer actively maintained. Best to use the version specified in https://github.com/googleapis/google-api-java-client-services/tree/main/clients/google-api-services-dataflow/v1b3"
+    },
+    {
+      "matchPackagePatterns": [
+        "org.springframework.boot"
+      ],
+      "matchPaths": [
+        "appengine-java11/**",
+        "appengine-java8/**",
+        "flexible/*",
+        "flexible/java-11/**",
+        "flexible/java-8/**",
+        "cloud-sql/**",
+        "monitoring/**",
+        "pubsub/spring/**",
+        "recaptcha_enterprise/**",
+        "run/endpoints-v2-backend/*",
+        "spanner/**",
+        "vision/**"
+      ],
+      "allowedVersions": "<3",
+      "description": "@akitsch: Spring Boot V3 requires Java 17"
+    },
+    {
+      "matchPackagePatterns": [
+        "^org.eclipse.jetty:"
+      ],
+      "groupName": "Java - Jetty packages",
+      "allowedVersions": "<10",
+      "matchPaths": [
+        "appengine-java8/**",
+        "appengine-java11/**",
+        "appengine-java17/**",
+        "flexible/java-8/**",
+        "iap/**",
+        "memorystore/redis/**",
+        "unittests/**"
+      ],
+      "description": "@akitsch: Java 8 on App Engine supports servlets V3.1 and Jetty V9 https://cloud.google.com/appengine/docs/flexible/java/runtime. Folders appengine-java1* needs to be migrated"
+    },
+    {
+      "matchPackagePatterns": ["^io.micronaut"],
+      "groupName": "Java - micronaut packages",
+      "allowedVersions": "<4",
+      "matchPaths": [
+        "appengine-java11/**",
+        "flexible/java-11/**"
+      ],
+      "description": "@akitsch: Micronaut V4 requires Java 17",
+    },
+    {
+      "matchPackageNames": [
+        "javax.servlet:javax.servlet-api"
+      ],
+      "allowedVersions": "3.1.0",
+      "matchPaths": [
+        "appengine-java8/**",
+        "appengine-java11/**",
+        "appengine-java17/**",
+        "flexible/java-8/**",
+        "iap/**",
+        "session-handling/**",
+        "memorystore/redis/**",
+        "unittests/**"
+      ],
+      "description": "@akitsch: Java 8 on App Engine supports servlets V3.1 and Jetty V9 https://cloud.google.com/appengine/docs/flexible/java/runtime. Folders appengine-java1* needs to be migrated",
+    },
+  ],
+}

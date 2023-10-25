@@ -1,0 +1,16 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "packageRules": [
+    {
+      "groupName": "javascript-nonmajor",
+      "matchUpdateTypes": ["minor", "patch"],
+    },
+    {
+      "groupName": "npm-dev",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "separateMajorMinor": false,
+    },
+  ]
+}
