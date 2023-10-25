@@ -1,0 +1,17 @@
+{
+  "name": "nodejs-docs-samples-functions-concepts-background-termination",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache-2.0",
+  "author": "Google Inc.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "test": "echo \"No tests exist for this sample.\""
+  }
+}
