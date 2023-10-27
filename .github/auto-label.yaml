@@ -94,6 +94,7 @@ path:
           demosite: "flagship"
 language:
   pullrequest: true
+  labelprefix: 'lang:'
 
 requestsize:
   enabled: true
