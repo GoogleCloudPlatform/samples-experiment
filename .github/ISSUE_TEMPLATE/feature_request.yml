@@ -1,0 +1,48 @@
+name: 'Feature request'
+description: 'Let us know how we can make things better'
+title: ''
+labels: ['priority: p3', 'type: feature request', 'triage me']
+assignees: ''
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for stopping by to let us know something could be better!
+        **PLEASE READ**: If you have a support contract with Google, please create an issue in the [support console](https://cloud.google.com/support/) instead of filing on GitHub. This will ensure a timely response.
+        **The issue you're having must be related to a file in this repository.** We are unable to provide assistance for issues unrelated to samples in this repository.
+        Please include as much information as possible:
+  - type: checkboxes
+    id: language
+    attributes:
+      label: "Programming Language"
+      options:
+        - label: Go
+        - label: Java        
+        - label: Node.js
+        - label: Python
+        - label: Terraform
+  - type: textarea
+    id: related-problem
+    attributes:
+      label: Is your feature request related to a problem? Please describe.
+      description: A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Describe the solution you'd like.
+      description: A clear and concise description of what you want to happen.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered.
+      description: A clear and concise description of any alternative solutions or features you've considered.
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature request here.
+  - type: markdown
+    attributes:
+      value: |      
+        Making sure to follow these steps will guarantee the quickest resolution possible.
+        Thanks!
