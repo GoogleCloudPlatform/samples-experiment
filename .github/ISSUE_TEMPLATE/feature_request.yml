@@ -1,8 +1,7 @@
-name: 'Feature request'
-description: 'Let us know how we can make things better'
-title: ''
-labels: ['priority: p3', 'type: feature request', 'triage me']
-assignees: ''
+name: Feature request
+description: Let us know how we can make things better
+title: "<productname>: <Your issue title>"
+labels: ["priority: p3", "type: feature request", "triage me"]
 body:
   - type: markdown
     attributes:
