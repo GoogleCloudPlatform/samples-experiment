@@ -110,15 +110,6 @@
     },
     {
       "matchPackagePatterns": [
-        "^io.ktor:",
-        "^com.amazonaws:"
-      ],
-      "schedule": [
-        "before 3am on the first day of the month"
-      ]
-    },
-    {
-      "matchPackagePatterns": [
         "org.springframework.boot"
       ],
       "matchCurrentVersion": "!/.*[SNAPSHOT | M]/"
@@ -127,8 +118,8 @@
       "matchPackageNames": [
         "com.google.apis:google-api-services-dataflow"
       ],
+      // This package is no longer actively maintained. Use the version specified in https://github.com/googleapis/google-api-java-client-services/tree/main/clients/google-api-services-dataflow/v1b3
       "enabled": false,
-      "description": "@anguillanneuf: This package is no longer actively maintained. Best to use the version specified in https://github.com/googleapis/google-api-java-client-services/tree/main/clients/google-api-services-dataflow/v1b3"
     },
     {
       "matchPackagePatterns": [
@@ -148,8 +139,8 @@
         "spanner/**",
         "vision/**"
       ],
+      // Spring Boot V3 requires Java 17
       "allowedVersions": "<3",
-      "description": "@akitsch: Spring Boot V3 requires Java 17"
     },
     {
       "matchPackagePatterns": [
@@ -166,7 +157,7 @@
         "memorystore/redis/**",
         "unittests/**"
       ],
-      "description": "@akitsch: Java 8 on App Engine supports servlets V3.1 and Jetty V9 https://cloud.google.com/appengine/docs/flexible/java/runtime. Folders appengine-java1* needs to be migrated"
+      // Java 8 on App Engine supports servlets V3.1 and Jetty V9 https://cloud.google.com/appengine/docs/flexible/java/runtime. Folders appengine-java1* needs to be migrated
     },
     {
       "matchPackagePatterns": ["^io.micronaut"],
@@ -176,7 +167,7 @@
         "appengine-java11/**",
         "flexible/java-11/**"
       ],
-      "description": "@akitsch: Micronaut V4 requires Java 17",
+      // Micronaut V4 requires Java 17
     },
     {
       "matchPackageNames": [
@@ -193,7 +184,7 @@
         "memorystore/redis/**",
         "unittests/**"
       ],
-      "description": "@akitsch: Java 8 on App Engine supports servlets V3.1 and Jetty V9 https://cloud.google.com/appengine/docs/flexible/java/runtime. Folders appengine-java1* needs to be migrated",
+      // Java 8 on App Engine supports servlets V3.1 and Jetty V9 https://cloud.google.com/appengine/docs/flexible/java/runtime. Folders appengine-java1* needs to be migrated
     },
   ],
 }
