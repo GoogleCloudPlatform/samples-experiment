@@ -21,16 +21,27 @@ allowedCopyrightHolders:
 allowedLicenses:
   - 'Apache-2.0'
 sourceFileExtensions:
-  - 'yaml'
-  - 'yml'
-  - 'sh'
-  - 'ts'
-  - 'js'
-  - 'java'
-  - 'py'
-  - 'html'
-  - 'txt'
   - 'Dockerfile'
   - 'go'
-  - 'tf'
+  - 'gradle'
+  - 'groovy'
+  - 'html'
+  - 'java'
+  - 'js'
+  - 'kt'
   - 'proto'
+  - 'py'
+  - 'sbt'
+  - 'scala'
+  - 'sh'
+  - 'tf'
+  - 'ts'
+  - 'txt'
+  - 'yaml'
+  - 'yml'
+
+
+# Migration Settings
+## By default, new files must be created with the current year.
+## During wide-scale file migrations, ignore this enforcement.
+ignoreLicenseYear: true
