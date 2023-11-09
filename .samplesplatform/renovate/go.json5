@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "packageRules": [
+    {
+      "postUpdateOptions": ["gomodTidy"],
+    },
+    {
+      "groupName": "go-nonmajor",
+      "matchUpdateTypes": ["minor", "patch"],
+    },
+  ]
+}

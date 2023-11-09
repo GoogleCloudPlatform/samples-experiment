@@ -1,0 +1,42 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "poetry": {
+    "fileMatch": ["pyproject.toml"],
+  },
+
+  "pip_requirements": {
+    "fileMatch": [
+      "requirements-test.txt",
+      "requirements-composer.txt",
+      "constraints.txt",
+      "constraints-test.txt",
+    ]
+  },
+  "ignorePaths": [
+    "python/composer/**/constraints.txt",
+    "python/composer/blog/**/constraints.txt",
+    "python/composer/airflow_1_samples/requirements.txt",
+    "python/appengine/standard",
+  ],
+
+  "packageRules": [
+    {
+      "groupName": "python-nonmajor",
+      "matchUpdateTypes": ["minor", "patch"],
+    },
+    {
+      "groupName": "OpenTelemetry",
+      "matchPackagePrefixes": ["opentelemetry-"],
+    },
+    {
+      "packagePatterns": ["pytest"],
+      "separateMinorPatch": true,
+    },
+    {
+      "packagePatterns": ["pytest"],
+      "updateTypes": ["patch"],
+      "enabled": false
+    },
+  ],
+}
