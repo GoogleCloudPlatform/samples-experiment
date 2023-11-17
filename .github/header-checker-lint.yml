@@ -40,6 +40,14 @@ sourceFileExtensions:
   - 'yaml'
   - 'yml'
 
+ignoreFiles:
+  - "**/requirements.txt"
+  - "**/requirements-composer.txt"
+  - "**/requirements-dev.txt"
+  - "**/requirements-test.txt"
+  - "**/__init__.py"
+  - "**/constraints.txt"
+  - "**/constraints-test.txt"
 
 # Migration Settings
 ## By default, new files must be created with the current year.
