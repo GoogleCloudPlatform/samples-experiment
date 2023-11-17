@@ -48,7 +48,7 @@ ignoreFiles:
   - "**/__init__.py"
   - "**/constraints.txt"
   - "**/constraints-test.txt"
-  - "products/language/python/resources/*"
+  - "products/language/python/resources/**"
 
 # Migration Settings
 ## By default, new files must be created with the current year.
