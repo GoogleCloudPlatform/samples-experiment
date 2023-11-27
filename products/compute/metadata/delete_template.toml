@@ -1,0 +1,60 @@
+region_tag = "compute_template_delete"
+creation_date = 2023-11-24
+modification_date = 2023-11-24
+title = "Delete an instance template"
+description = "Deletes an instance template from a project."
+standalone = true
+deprecated = false
+
+[give_this_a_name]
+required_apis = [
+    'compute.googleapis.com'
+]
+required_permissions = [
+    'compute.instanceTemplates.delete',
+    'compute.instanceTemplates.get'
+]
+required_roles = [
+    'roles/compute.admin'
+]
+
+requirements = "The template mus exist... No special requirements or hidden catches here."
+effects = "The template gets deleted."
+
+[[tests]]
+parallel = false
+legacy = false
+
+[tests.variables]
+PROJECT_ID = 'python-docs-samples'
+TEMPLATE_NAME = 'test-template-#####'
+
+[tests.setup]
+commands = ["gcloud compute instance-templates create $TEMPLATE_NAME"]
+
+[tests.check]
+# Using ! to fail if there is our template present in the returned list
+command = "! gcloud compute instance-templates list | grep $TEMPLATE_NAME"
+
+[tests.cleanup]
+# Make sure the template is deleted. This command CAN fail if the test.check was succesful.
+commands = ["gcloud compute instance-templates delete --quiet $TEMPLATE_NAME"]
+
+[tests.python]
+file = "../python/templates/delete.py"
+method = "delete_instance_template"
+# Parameters have to be always strings. Even if there is a number needed, do the casting inside the function.
+parameters = ["$PROJECT_ID", "$TEMPLATE_NAME"]
+requirements = "../python/templates/requirements.txt"
+
+[tests.java]
+# Name of the class can be derived from the file name
+file = "../java/src/main/java/templates/DeleteInstanceTemplate.java"
+# The method has to be public, so it can be called from outside the class
+method = "deleteInstanceTemplate"
+# Parameters have to be always strings. Even if there is a number needed, do the casting inside the function.
+parameters = ["$PROJECT_ID", "$TEMPLATE_NAME"]
+pom = "../java/src/pom.xml"
+
+
+
