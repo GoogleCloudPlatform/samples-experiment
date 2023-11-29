@@ -6,7 +6,7 @@ description = "Deletes an instance template from a project."
 standalone = true
 deprecated = false
 # What kinds of preconditions needs to be met. Natural language. (optional)
-requirements = "The template mus exist... No special requirements or hidden catches here."
+requirements = "The template must exist... No special requirements or hidden catches here."
 # What will happen when the code sample in the region tag gets executed. Natural Language. (optional)
 effects = "The template gets deleted."
 
