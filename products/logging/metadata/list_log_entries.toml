@@ -1,0 +1,97 @@
+region_tag = ["logging_list_log_entries"]
+creation_date = 2023-12-04
+modification_date = 2023-12-04
+title = "List log entries"
+description = "Lists the most recent entries for a given logger."
+standalone = true
+deprecated = false
+# What kinds of preconditions needs to be met. Natural language. (optional)
+requirements = "Logger must exist for functional testing."
+# What will happen when the code sample in the region tag gets executed. Natural Language. (optional)
+effects = "The log entries for the given logger for the last one minute will be piped out."
+
+[requirements]
+# List of services that need to be enabled for the sample (and tests) to work.
+# The system will use `gcloud services enable <api>` to turn them all on.
+apis = [
+    'logging.googleapis.com'
+]
+# What permissions are needed for the code sample to properly work.
+required_permissions = [
+    'logging.read'
+]
+# What roles can be used to provide neccessary permissions.
+# Those should be predefined roles, but in case you want to use a custom role, use it in the form of:
+# projects/<project_name>/roles/<role_name>
+# So it is clear that it is a custom role.
+required_roles = [
+    'roles/logging.viewer'
+]
+
+[[tests]]
+# Indicates if the resoruces prepared in the setup section can be shared between tests.
+# This is used to tests that don't alter the resources (i.e. listing PubSub topics).
+# If set to false, setup and cleanup will happen for each language separately.
+# If set to true, setup and cleanup will happen only once.
+shared_resources = true
+
+# How many tests from this set can be executed at the same time. Needed in case of limited resources.
+# Different versions of a language are treated as separate language.
+parallel_limit = 16
+
+[tests.variables]
+# Using a single project for all the languages. Many tests can be run with `parallel = true`, which
+# will speed things up.
+PROJECT_ID = 'unified-testing-project'
+# The series of #### gets replaced by random string to generate unique IDs.
+# A different value is prepared for each test language. Different versions of a language
+# count as different languages.
+LOGGER_NAME = 'test-logger-name-#####'
+LOG_MESSAGE = 'Hello World'
+
+[tests.setup]
+# This needs to exit with code 0. If it doesn't the test will fail.
+# If shared_resources = false, this command will be executed for every language separately.
+# If it's true, the command will be executed only once before all the tests.
+commands = ["gcloud logging write $LOGGER_NAME \"$LOG_MESSAGE\" "]
+
+[tests.check]
+# Check if the log_message is present in the returned log entries.
+command = "gcloud logging logs list | grep $LOG_MESSAGE"
+
+[tests.cleanup]
+# Make sure the template is deleted. If the command can fail, use `|| true` to supress the failure.
+# In this case, it WILL fail, if the test was successful, so we want to ignore this failure.
+commands = ["gcloud logging logs delete --quiet $LOGGER_NAME"]
+
+[tests.python]
+# We can specify which versions of a language we want to test against.
+versions = ["3.8", "3.12"]
+# Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
+legacy = false
+file = "../python/snippets.py"
+method = "list_entries"
+# Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
+parameters = ["$LOGGER_NAME"]
+# Those packages will be installed before executing the Python sample.
+requirements = "../python/requirements.txt"
+
+[tests.java]
+# We can specify which versions of a language we want to test against.
+versions = ["11", "17", "21"]
+# Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
+legacy = true
+# Name of the class can be derived from the file name.
+file = "../java/src/main/java/ListLogEntries.java"
+# The method has to be public and static, so it can be called from outside the class
+method = "main"
+# Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
+# TODO: Is there a use for this field in legacy tests??
+parameters = ["$LOGGER_NAME"]
+# Those packages will be installed before compiling and executing the Java sample.
+pom = "../java/src/pom.xml"
+test_file = "../java/src/test/java/LoggingIT.java"
+test_method_name = "testListLogEntriesSample"
+
+
+
