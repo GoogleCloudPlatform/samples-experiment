@@ -60,8 +60,9 @@ commands = ["gcloud logging write $LOGGER_NAME \"$LOG_MESSAGE\" "]
 command = "gcloud logging logs list | grep $LOG_MESSAGE"
 
 [tests.cleanup]
-# Make sure the template is deleted. If the command can fail, use `|| true` to supress the failure.
-# In this case, it WILL fail, if the test was successful, so we want to ignore this failure.
+# Make sure all log entries for the logger are deleted. If the command can fail,
+# use `|| true` to supress the failure.
+# In this case, it WILL PASS.
 commands = ["gcloud logging logs delete --quiet $LOGGER_NAME"]
 
 [tests.python]
@@ -80,6 +81,7 @@ requirements = "../python/requirements.txt"
 # We can specify which versions of a language we want to test against.
 versions = ["11", "17", "21"]
 # Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
+# TODO: We need to make sure the exceptions are thrown from the tests and not sysout/ printed.
 legacy = true
 # Name of the class can be derived from the file name.
 file = "../java/src/main/java/ListLogEntries.java"
@@ -90,8 +92,9 @@ method = "main"
 parameters = ["$LOGGER_NAME"]
 # Those packages will be installed before compiling and executing the Java sample.
 pom = "../java/src/pom.xml"
+# In case of legacy tests = true, specify the path to test file.
 test_file = "../java/src/test/java/LoggingIT.java"
+# This method will be executed and the output will be examined to determine if it passed/ failed.
+# NO parameters will be passed as the legacy tests should be self-sufficient.
+# TODO: Special env variable setups should be taken care of.
 test_method_name = "testListLogEntriesSample"
-
-
-
