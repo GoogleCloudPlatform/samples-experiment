@@ -79,6 +79,8 @@ parameters = ["$PROJECT_ID", "$TEMPLATE_NAME"]
 requirements = "../python/templates/requirements.txt"
 
 [tests.java]
+# We can specify which versions of a language we want to test against.
+versions = ["11", "17", "21"]
 # Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
 legacy = false
 # Name of the class can be derived from the file name.
