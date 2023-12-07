@@ -97,4 +97,4 @@ test_file = "../java/src/test/java/LoggingIT.java"
 # This method will be executed and the output will be examined to determine if it passed/ failed.
 # NO parameters will be passed as the legacy tests should be self-sufficient.
 # TODO: Special env variable setups should be taken care of.
-test_method_name = "testListLogEntriesSample"
+test_method = "testListLogEntriesSample"
