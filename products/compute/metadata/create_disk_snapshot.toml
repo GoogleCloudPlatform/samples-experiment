@@ -18,14 +18,15 @@ apis = [
 ]
 # What permissions are needed for the code sample to properly work.
 required_permissions = [
-
+    'compute.snapshots.create',
+    'compute.disks.createSnapshot'
 ]
 # What roles can be used to provide neccessary permissions.
 # Those should be predefined roles, but in case you want to use a custom role, use it in the form of:
 # projects/<project_name>/roles/<role_name>
 # So it is clear that it is a custom role.
 required_roles = [
-
+    'roles/compute.instanceAdmin.v1'
 ]
 
 [[tests]]
