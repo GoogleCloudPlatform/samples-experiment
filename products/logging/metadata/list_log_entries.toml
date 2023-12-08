@@ -6,7 +6,7 @@ description = "Lists the most recent entries for a given logger."
 standalone = true
 deprecated = false
 # What kinds of preconditions needs to be met. Natural language. (optional)
-requirements = "Logger must exist for functional testing."
+requirements = "The Logger must exist in the project."
 # What will happen when the code sample in the region tag gets executed. Natural Language. (optional)
 effects = "The log entries for the given logger for the last one minute will be piped out."
 
@@ -17,6 +17,7 @@ apis = [
     'logging.googleapis.com'
 ]
 # What permissions are needed for the code sample to properly work.
+# TODO: Should these permissions encompasse those required for setup and cleanup phase too?
 required_permissions = [
     'logging.read'
 ]
