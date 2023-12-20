@@ -45,6 +45,7 @@ parallel_limit = 16
 [tests.variables]
 # Using a single project for all the languages. Many tests can be run with `parallel = true`, which
 # will speed things up.
+# TODO: Replace the PROJECT_ID with a dynamic value.
 PROJECT_ID = 'unified-testing-project'
 # The series of #### gets replaced by random string to generate unique IDs.
 # A different value is prepared for each test language. Different versions of a language

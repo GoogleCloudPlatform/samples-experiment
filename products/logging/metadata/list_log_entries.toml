@@ -18,6 +18,7 @@ apis = [
 ]
 # What permissions are needed for the code sample to properly work.
 # TODO: Should these permissions encompasse those required for setup and cleanup phase too?
+# If so, how would we distinguish which ones to include in docs for the sample.
 required_permissions = [
     'logging.read'
 ]
@@ -43,6 +44,7 @@ parallel_limit = 16
 [tests.variables]
 # Using a single project for all the languages. Many tests can be run with `parallel = true`, which
 # will speed things up.
+# TODO: Replace the PROJECT_ID with a dynamic value.
 PROJECT_ID = 'unified-testing-project'
 # The series of #### gets replaced by random string to generate unique IDs.
 # A different value is prepared for each test language. Different versions of a language
@@ -58,7 +60,9 @@ commands = ["gcloud logging write $LOGGER_NAME \"$LOG_MESSAGE\" "]
 
 [tests.check]
 # Check if the log_message is present in the returned log entries.
-command = "gcloud logging logs list | grep $LOG_MESSAGE"
+# UST_SAMPLE_OUTPUT is an environment variable populated with the
+# sample's output.
+command = "echo $UST_SAMPLE_OUTPUT | grep $LOG_MESSAGE"
 
 [tests.cleanup]
 # Make sure all log entries for the logger are deleted. If the command can fail,
@@ -97,5 +101,5 @@ pom = "../java/src/pom.xml"
 test_file = "../java/src/test/java/LoggingIT.java"
 # This method will be executed and the output will be examined to determine if it passed/ failed.
 # NO parameters will be passed as the legacy tests should be self-sufficient.
-# TODO: Special env variable setups should be taken care of.
+# TODO: Special env variable setups in test files should be taken care of.
 test_method = "testListLogEntriesSample"
