@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-variable "bucket_name" {
+variable "BUCKET_NAME" {
     type        = string
 }
-variable "file_name" {
+
+variable "FILE_NAME" {
     type        = string
 }
 
 resource "google_storage_bucket" "default" {
-  name          = var.bucket_name
+  name          = var.BUCKET_NAME
   location      = "EU"
   force_destroy = true
 
@@ -31,7 +32,7 @@ resource "google_storage_bucket" "default" {
 }
 
 resource "google_storage_bucket_object" "default" {
-  name   = var.file_name
+  name   = var.FILE_NAME
   content = " this is the content! "
   bucket = google_storage_bucket.default.name
 }
