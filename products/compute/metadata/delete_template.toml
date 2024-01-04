@@ -69,7 +69,7 @@ commands = ["gcloud compute instance-templates delete --quiet $TEMPLATE_NAME || 
 
 [tests.python]
 # We can specify which versions of a language we want to test against.
-versions = ["3.11"]
+versions = ["3.9", "3.10", "3.11", "3.12"]
 # Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
 legacy = false
 file = "../python/templates/delete.py"

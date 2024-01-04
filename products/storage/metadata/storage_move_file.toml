@@ -65,8 +65,9 @@ command = "gsutil ls gs://$BUCKET_NAME/ | grep $NEW_FILE_NAME"
 # Make sure the template is deleted. If the command can fail, use `|| true` to supress the failure.
 # In this case, it WILL fail, if the test was successful, so we want to ignore this failure.
 # Since Terraform was used to set up the environment, it will be automatically used to clean up using
-# `terraform destroy`. However, since some resources might not longer be under Terraform control, we have an option to
+# `terraform destroy`. However, since some resources might no longer be under Terraform control, we have an option to
 # execute some commands before `terraform destroy` takes place.
+
 commands = ["gsutil rm -f gs://$BUCKET_NAME/$NEW_FILE_NAME"]
 
 [tests.python]
@@ -79,7 +80,7 @@ method = "move_blob"
 # Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
 parameters = ["$BUCKET_NAME", "$FILE_NAME", "$BUCKET_NAME", "$NEW_FILE_NAME"]
 # Those packages will be installed before executing the Python sample.
-requirements = "../python/templates/requirements.txt"
+requirements = "../python/requirements.txt"
 
 [tests.java]
 versions = ["11", "17", "21"]
@@ -121,7 +122,7 @@ legacy = false
 file = "../python/storage_move_file.py"
 method = "move_blob"
 parameters = ["$BUCKET_NAME", "$FILE_NAME", "$NEW_BUCKET_NAME", "$NEW_FILE_NAME"]
-requirements = "../python/templates/requirements.txt"
+requirements = "../python/requirements.txt"
 
 [tests.java]
 versions = ["11", "17", "21"]
