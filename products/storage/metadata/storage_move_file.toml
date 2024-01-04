@@ -62,13 +62,12 @@ terraform = ["tf/storage_move_file/single_bucket_move.tf"]
 command = "gsutil ls gs://$BUCKET_NAME/ | grep $NEW_FILE_NAME"
 
 [tests.cleanup]
-# Make sure the template is deleted. If the command can fail, use `|| true` to supress the failure.
-# In this case, it WILL fail, if the test was successful, so we want to ignore this failure.
+# Make sure the file is deleted. If the command can fail, use `|| true` to supress the failure.
 # Since Terraform was used to set up the environment, it will be automatically used to clean up using
 # `terraform destroy`. However, since some resources might no longer be under Terraform control, we have an option to
 # execute some commands before `terraform destroy` takes place.
 
-commands = ["gsutil rm -f gs://$BUCKET_NAME/$NEW_FILE_NAME"]
+commands = ["gsutil rm -f gs://$BUCKET_NAME/$NEW_FILE_NAME || true"]
 
 [tests.python]
 # We can specify which versions of a language we want to test against.
@@ -114,7 +113,7 @@ terraform = ["tf/storage_move_file/move_between_buckets.tf"]
 command = "gsutil ls gs://$NEW_BUCKET_NAME/ | grep $NEW_FILE_NAME"
 
 [tests.cleanup]
-commands = ["gsutil rm -f gs://$NEW_BUCKET_NAME/$NEW_FILE_NAME"]
+commands = ["gsutil rm -f gs://$NEW_BUCKET_NAME/$NEW_FILE_NAME || true"]
 
 [tests.python]
 versions = ["3.8", "3.12"]
