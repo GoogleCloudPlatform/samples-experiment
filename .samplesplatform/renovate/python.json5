@@ -30,12 +30,12 @@
       "matchPackagePrefixes": ["opentelemetry-"],
     },
     {
-      "packagePatterns": ["pytest"],
+      "matchPackagePatterns": ["pytest"],
       "separateMinorPatch": true,
     },
     {
-      "packagePatterns": ["pytest"],
-      "updateTypes": ["patch"],
+      "matchPackagePatterns": ["pytest"],
+      "matchUpdateTypes": ["patch"],
       "enabled": false
     },
   ],
