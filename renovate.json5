@@ -81,31 +81,31 @@
     {
       "matchCategories": ["go"],
       "extends": [
-        "local>.samplesplatform/renovate/go.json5",
+        "local>.samplesplatform/renovate/go",
       ],
     },
     {
       "matchCategories": ["python"],
       "extends": [
-        "local>.samplesplatform/renovate/python.json5",
+        "local>.samplesplatform/renovate/python",
       ],
     },
     {
       "matchCategories": ["java"],
       "extends": [
-        "local>.samplesplatform/renovate/java.json5",
+        "local>.samplesplatform/renovate/java",
       ],
     },
     {
       "matchManagers": ["terraform"],
       "extends": [
-        "local>.samplesplatform/renovate/terraform.json5",
+        "local>.samplesplatform/renovate/terraform",
       ],
     },
     {
       "matchCategories": ["js", "node"],
       "extends": [
-        "local>.samplesplatform/renovate/javascript.json5",
+        "local>.samplesplatform/renovate/javascript",
       ],
     },
 
