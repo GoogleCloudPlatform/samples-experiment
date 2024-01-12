@@ -1,0 +1,78 @@
+region_tag = ["compute_snapshot_create"]
+creation_date = 2023-12-06
+modification_date = 2023-12-06
+title = "Create disk snapshot."
+description = "Creates a new snapshot of the given zonal/regional disk."
+standalone = true
+deprecated = false
+# What kinds of preconditions needs to be met. Natural language. (optional)
+requirements = "The disk to be snapshotted should exist."
+# What will happen when the code sample in the region tag gets executed. Natural Language. (optional)
+effects = "The snapshot gets created in the location specified."
+
+[requirements]
+# List of services that need to be enabled for the sample (and tests) to work.
+# The system will use `gcloud services enable <api>` to turn them all on.
+apis = [
+    'compute.googleapis.com'
+]
+# What permissions are needed for the code sample to properly work.
+required_permissions = [
+    'compute.snapshots.create',
+    'compute.disks.createSnapshot'
+]
+# What roles can be used to provide neccessary permissions.
+# Those should be predefined roles, but in case you want to use a custom role, use it in the form of:
+# projects/<project_name>/roles/<role_name>
+# So it is clear that it is a custom role.
+required_roles = [
+    'roles/compute.instanceAdmin.v1'
+]
+
+[[tests]]
+# Indicates if the resoruces prepared in the setup section can be shared between tests.
+# This is used to tests that don't alter the resources (i.e. listing PubSub topics).
+# If set to false, setup and cleanup will happen for each language separately.
+# If set to true, setup and cleanup will happen only once.
+shared_resources = false
+
+# How many tests from this set can be executed at the same time. Needed in case of limited resources.
+# Different versions of a language are treated as separate language.
+parallel_limit = 16
+
+[tests.variables]
+# Using a single project for all the languages. Many tests can be run with `parallel = true`, which
+# will speed things up.
+# TODO: Replace the PROJECT_ID with a dynamic value.
+PROJECT_ID = 'unified-testing-project'
+# The series of #### gets replaced by random string to generate unique IDs.
+# A different value is prepared for each test language. Different versions of a language
+# count as different languages.
+
+[tests.python]
+# We can specify which versions of a language we want to test against.
+versions = ["3.8", "3.12"]
+# Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
+legacy = true
+file = "../python/templates/delete.py"
+method = "delete_instance_template"
+test_file = "../python/snapshot/test_snapshots.py"
+test_method = "test_snapshot_create_delete"
+# Those packages will be installed before executing the Python sample.
+requirements = "../python/snapshot/requirements.txt"
+requirements_test = "../python/snapshot/requirements-test.txt"
+
+[tests.java]
+# We can specify which versions of a language we want to test against.
+versions = ["11", "17", "21"]
+# Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
+legacy = true
+# Name of the class can be derived from the file name.
+file = "../java/src/main/java/templates/DeleteInstanceTemplate.java"
+# The method has to be public and static, so it can be called from outside the class
+method = "deleteInstanceTemplate"
+test_file = "../java/src/test/java/snapshot/SnapshotsIT.java"
+# TODO: What if there is no corresponding test method?
+test_method = ""
+# Those packages will be installed before compiling and executing the Java sample.
+pom = "../java/src/pom.xml"
