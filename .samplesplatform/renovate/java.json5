@@ -125,7 +125,7 @@
       "matchPackagePatterns": [
         "org.springframework.boot"
       ],
-      "matchPaths": [
+      "matchFileNames": [
         "appengine-java11/**",
         "appengine-java8/**",
         "flexible/*",
@@ -148,7 +148,7 @@
       ],
       "groupName": "Java - Jetty packages",
       "allowedVersions": "<10",
-      "matchPaths": [
+      "matchFileNames": [
         "appengine-java8/**",
         "appengine-java11/**",
         "appengine-java17/**",
@@ -163,7 +163,7 @@
       "matchPackagePatterns": ["^io.micronaut"],
       "groupName": "Java - micronaut packages",
       "allowedVersions": "<4",
-      "matchPaths": [
+      "matchFileNames": [
         "appengine-java11/**",
         "flexible/java-11/**"
       ],
@@ -174,7 +174,7 @@
         "javax.servlet:javax.servlet-api"
       ],
       "allowedVersions": "3.1.0",
-      "matchPaths": [
+      "matchFileNames": [
         "appengine-java8/**",
         "appengine-java11/**",
         "appengine-java17/**",
