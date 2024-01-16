@@ -95,6 +95,11 @@ path:
 language:
   pullrequest: true
   labelprefix: 'lang:'
+  extensions:
+    python: ['requirements.txt']
+    js: ['package.json', 'package-lock.json']
+    go: ['go.mod', 'go.sum', 'go.work']
+    java: ['pom.xml']
 
 requestsize:
   enabled: true
