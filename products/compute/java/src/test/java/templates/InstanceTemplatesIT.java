@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package compute;
+package templates;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;

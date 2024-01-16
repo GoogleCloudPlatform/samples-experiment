@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.storage;
+package object;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertArrayEquals;

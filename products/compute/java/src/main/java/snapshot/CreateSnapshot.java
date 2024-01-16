@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package compute.disks;
+package snapshot;
 
 // [START compute_snapshot_create]
 

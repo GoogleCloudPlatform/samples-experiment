@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.logging;
+package logs;
 
 // [START logging_list_log_entries]
 import com.google.api.gax.paging.Page;
