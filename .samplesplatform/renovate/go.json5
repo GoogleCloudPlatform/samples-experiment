@@ -3,6 +3,7 @@
   "postUpdateOptions": ["gomodTidy"],
   "packageRules": [
     {
+      "matchCategories": ["go"], // DO NOT EDIT: Limits this file's configurations to Go code.
       "groupName": "go-nonmajor",
       "matchUpdateTypes": ["minor", "patch"],
     },
