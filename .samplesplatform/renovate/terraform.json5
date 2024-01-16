@@ -1,5 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "groupName": "Terraform",
-  "separateMajorMinor": false,
+  "packageRules": {
+    "matchManagers": ["terraform"], // DO NOT EDIT: Limits this file's configurations to Terraform code.
+    "groupName": "Terraform",
+    "separateMajorMinor": false,
+  },
 }
