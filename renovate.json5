@@ -27,11 +27,11 @@
     // - Consistently use a matchNNN rule to silo all package rules
     // - Ensure any global config would only impact owned language tooling
     // - There may be rules in the future, such as limiting the number of groups
-    "local>//.samplesplatform/renovate/go",
-    "local>//.samplesplatform/renovate/python",
-    "local>//.samplesplatform/renovate/java",
-    "local>//.samplesplatform/renovate/javascript",
-    "local>//.samplesplatform/renovate/terraform",
+    "github>GoogleCloudPlatform/samples-experiment//.samplesplatform/renovate/go.json5",
+    "github>GoogleCloudPlatform/samples-experiment//.samplesplatform/renovate/python.json5",
+    "github>GoogleCloudPlatform/samples-experiment//.samplesplatform/renovate/java.json5",
+    "github>GoogleCloudPlatform/samples-experiment//.samplesplatform/renovate/javascript.json5",
+    "github>GoogleCloudPlatform/samples-experiment//.samplesplatform/renovate/terraform.json5",
   ],
 
   // Synchronized with a 2 week sprint cycle and outside business hours.
