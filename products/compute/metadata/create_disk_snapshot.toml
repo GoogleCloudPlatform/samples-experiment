@@ -6,9 +6,9 @@ description = "Creates a new snapshot of the given zonal/regional disk."
 standalone = true
 deprecated = false
 # What kinds of preconditions needs to be met. Natural language. (optional)
-requirements = "The disk to be snapshotted should exist."
+requirements_desc = "The disk to be snapshotted should exist."
 # What will happen when the code sample in the region tag gets executed. Natural Language. (optional)
-effects = "The snapshot gets created in the location specified."
+effects_desc = "The snapshot gets created in the location specified."
 
 [requirements]
 # List of services that need to be enabled for the sample (and tests) to work.
@@ -44,7 +44,7 @@ parallel_limit = 16
 # Using a single project for all the languages. Many tests can be run with `parallel = true`, which
 # will speed things up.
 # TODO: Replace the PROJECT_ID with a dynamic value.
-PROJECT_ID = 'unified-testing-project'
+#PROJECT_ID = 'unified-testing-project'
 # The series of #### gets replaced by random string to generate unique IDs.
 # A different value is prepared for each test language. Different versions of a language
 # count as different languages.
@@ -54,8 +54,8 @@ PROJECT_ID = 'unified-testing-project'
 versions = ["3.8", "3.12"]
 # Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
 legacy = true
-file = "../python/templates/delete.py"
-method = "delete_instance_template"
+file = "../python/snapshot/create.py"
+method = "create_snapshot"
 test_file = "../python/snapshot/test_snapshots.py"
 test_method = "test_snapshot_create_delete"
 # Those packages will be installed before executing the Python sample.
