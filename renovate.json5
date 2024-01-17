@@ -5,7 +5,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base", // https://docs.renovatebot.com/presets-config/#configbase
+    "config:recommended", // https://docs.renovatebot.com/presets-config/#configrecommended
     ":semanticCommits", // https://docs.renovatebot.com/presets-default/#semanticcommits
     ":ignoreUnstable", // https://docs.renovatebot.com/presets-default/#ignoreunstable
     "group:allNonMajor", // https://docs.renovatebot.com/presets-group/#groupallnonmajor
@@ -14,6 +14,24 @@
     ":prNotPending", // https://docs.renovatebot.com/presets-default/#prnotpending
     ":prHourlyLimitNone", // https://docs.renovatebot.com/presets-default/#prhourlylimitnone
     "docker:enableMajor", // https://docs.renovatebot.com/presets-docker/#dockerenablemajor
+
+    // Renovate configuration per supported programming language.
+    // Originally these were included in packageRules in this file, with matching
+    // rules to ensure changes to the individual preset files could not leak.
+    // This practice throws unclear errors, despite theoretical support:
+    // https://github.com/renovatebot/renovate/issues/14974.
+    // Errors occur regardless of including 'packageRules' inside the preset,
+    // and matchNNN rules must sit inside packageRules statements.
+    //
+    // The following rules for language presets are:
+    // - Consistently use a matchNNN rule to silo all package rules
+    // - Ensure any global config would only impact owned language tooling
+    // - There may be rules in the future, such as limiting the number of groups
+    "local>//.samplesplatform/renovate/go",
+    "local>//.samplesplatform/renovate/python",
+    "local>//.samplesplatform/renovate/java",
+    "local>//.samplesplatform/renovate/javascript",
+    "local>//.samplesplatform/renovate/terraform",
   ],
 
   // Synchronized with a 2 week sprint cycle and outside business hours.
