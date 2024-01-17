@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.storage.object;
+package object;
 
 // [START storage_move_file]
 
