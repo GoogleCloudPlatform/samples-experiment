@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.logging;
+package logs;
 
 import static com.google.cloud.logging.testing.RemoteLoggingHelper.formatForTest;
 import static com.google.common.truth.Truth.assertThat;

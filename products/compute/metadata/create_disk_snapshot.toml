@@ -67,6 +67,8 @@ requirements_test = "../python/snapshot/requirements-test.txt"
 versions = ["11", "17", "21"]
 # Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
 legacy = true
+# Package name of the sample to be tested.
+package_name = "snapshot"
 # Name of the class can be derived from the file name.
 file = "../java/src/main/java/templates/DeleteInstanceTemplate.java"
 # The method has to be public and static, so it can be called from outside the class
