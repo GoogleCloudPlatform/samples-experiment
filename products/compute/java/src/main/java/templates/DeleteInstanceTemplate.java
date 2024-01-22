@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package compute;
+package templates;
 
 // [START compute_template_delete]
 
