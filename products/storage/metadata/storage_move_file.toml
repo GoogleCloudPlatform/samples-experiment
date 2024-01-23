@@ -6,9 +6,9 @@ description = "Moves or renames a file inside a storage bucket. Not suitable to 
 standalone = true
 deprecated = false
 # What kinds of preconditions needs to be met. Natural language. (optional)
-requirements = "The bucket and the file must exist. User needs to have write permission to the bucket."
+requirements_desc = "The bucket and the file must exist. User needs to have write permission to the bucket."
 # What will happen when the code sample in the region tag gets executed. Natural Language. (optional)
-effects = "File is moved/renamed."
+effects_desc = "File is moved/renamed."
 
 [requirements]
 # List of services that need to be enabled for the sample (and tests) to work.
@@ -62,12 +62,12 @@ terraform = ["tf/storage_move_file/single_bucket_move.tf"]
 command = "gsutil ls gs://$BUCKET_NAME/ | grep $NEW_FILE_NAME"
 
 [tests.cleanup]
-# Make sure the template is deleted. If the command can fail, use `|| true` to supress the failure.
-# In this case, it WILL fail, if the test was successful, so we want to ignore this failure.
+# Make sure the file is deleted. If the command can fail, use `|| true` to supress the failure.
 # Since Terraform was used to set up the environment, it will be automatically used to clean up using
-# `terraform destroy`. However, since some resources might not longer be under Terraform control, we have an option to
+# `terraform destroy`. However, since some resources might no longer be under Terraform control, we have an option to
 # execute some commands before `terraform destroy` takes place.
-commands = ["gsutil rm -f gs://$BUCKET_NAME/$NEW_FILE_NAME"]
+
+commands = ["gsutil rm -f gs://$BUCKET_NAME/$NEW_FILE_NAME || true"]
 
 [tests.python]
 # We can specify which versions of a language we want to test against.
@@ -79,7 +79,7 @@ method = "move_blob"
 # Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
 parameters = ["$BUCKET_NAME", "$FILE_NAME", "$BUCKET_NAME", "$NEW_FILE_NAME"]
 # Those packages will be installed before executing the Python sample.
-requirements = "../python/templates/requirements.txt"
+requirements = "../python/requirements.txt"
 
 [tests.java]
 versions = ["11", "17", "21"]
@@ -115,7 +115,7 @@ terraform = ["tf/storage_move_file/move_between_buckets.tf"]
 command = "gsutil ls gs://$NEW_BUCKET_NAME/ | grep $NEW_FILE_NAME"
 
 [tests.cleanup]
-commands = ["gsutil rm -f gs://$NEW_BUCKET_NAME/$NEW_FILE_NAME"]
+commands = ["gsutil rm -f gs://$NEW_BUCKET_NAME/$NEW_FILE_NAME || true"]
 
 [tests.python]
 versions = ["3.8", "3.12"]
@@ -123,7 +123,7 @@ legacy = false
 file = "../python/storage_move_file.py"
 method = "move_blob"
 parameters = ["$BUCKET_NAME", "$FILE_NAME", "$NEW_BUCKET_NAME", "$NEW_FILE_NAME"]
-requirements = "../python/templates/requirements.txt"
+requirements = "../python/requirements.txt"
 
 [tests.java]
 versions = ["11", "17", "21"]

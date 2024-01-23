@@ -96,6 +96,37 @@
        "pinDigests": true,
     },
 
+    {
+      "matchCategories": ["go"],
+      "extends": [
+        "local>.samplesplatform/renovate/go",
+      ],
+    },
+    {
+      "matchCategories": ["python"],
+      "extends": [
+        "local>.samplesplatform/renovate/python",
+      ],
+    },
+    {
+      "matchCategories": ["java"],
+      "extends": [
+        "local>.samplesplatform/renovate/java",
+      ],
+    },
+    {
+      "matchManagers": ["terraform"],
+      "extends": [
+        "local>.samplesplatform/renovate/terraform",
+      ],
+    },
+    {
+      "matchCategories": ["js", "node"],
+      "extends": [
+        "local>.samplesplatform/renovate/javascript",
+      ],
+    },
+
     // Updating coupled ecosystems.
     {
       "groupName": "Playwright",
