@@ -94,7 +94,7 @@ method = "moveObject"
 # Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
 parameters = ["$PROJECT_ID", "$BUCKET_NAME", "$FILE_NAME", "$BUCKET_NAME", "$NEW_FILE_NAME"]
 # Those packages will be installed before compiling and executing the Java sample.
-pom = "../java/src/pom.xml"
+pom = "../java/pom.xml"
 
 [[tests]] # Second set of tests to check moving between buckets
 
@@ -133,4 +133,4 @@ package_name = "object"
 file = "../java/src/main/java/MoveObject.java"
 method = "moveObject"
 parameters = ["$PROJECT_ID", "$BUCKET_NAME", "$FILE_NAME", "$NEW_BUCKET_NAME", "$NEW_FILE_NAME"]
-pom = "../java/src/pom.xml"
+pom = "../java/pom.xml"
