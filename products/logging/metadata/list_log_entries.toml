@@ -98,7 +98,7 @@ method = "main"
 # TODO: Is there a use for this field in legacy tests??
 parameters = ["$LOGGER_NAME"]
 # Those packages will be installed before compiling and executing the Java sample.
-pom = "../java/src/pom.xml"
+pom = "../java/pom.xml"
 # In case of legacy tests = true, specify the path to test file.
 test_file = "../java/src/test/java/LoggingIT.java"
 # This method will be executed and the output will be examined to determine if it passed/ failed.
