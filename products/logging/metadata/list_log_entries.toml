@@ -77,7 +77,7 @@ versions = ["3.8", "3.12"]
 file = "../python/snippets.py"
 method = "list_entries"
 # Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
-parameters = ["$PROJECT_ID"]
+parameters = ["$LOGGER_NAME"]
 # Those packages will be installed before executing the Python sample.
 requirements = "../python/requirements.txt"
 
