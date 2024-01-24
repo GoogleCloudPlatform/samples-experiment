@@ -93,7 +93,7 @@ method = "deleteInstanceTemplate"
 # Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
 parameters = ["$PROJECT_ID", "$TEMPLATE_NAME"]
 # Those packages will be installed before compiling and executing the Java sample.
-pom = "../java/src/pom.xml"
+pom = "../java/pom.xml"
 
 
 

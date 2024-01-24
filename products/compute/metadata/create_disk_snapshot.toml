@@ -77,4 +77,4 @@ test_file = "../java/src/test/java/snapshot/SnapshotsIT.java"
 # TODO: What if there is no corresponding test method?
 test_method = ""
 # Those packages will be installed before compiling and executing the Java sample.
-pom = "../java/src/pom.xml"
+pom = "../java/pom.xml"
