@@ -66,12 +66,12 @@ commands = ["gcloud storage buckets create gs://$BUCKET_NAME"]
 
 [tests.check]
 # Using ! to fail if there is our bucket present in the returned list
-command = "! gsutil ls | grep $BUCKET_NAME"
+command = "! gcloud storage buckets list gs://test-bucket-* | grep $BUCKET_NAME"
 
 [tests.cleanup]
 # Make sure the bucket is deleted. If the command can fail, use `|| true` to supress the failure.
 # In this case, it WILL fail, if the test was successful, so we want to ignore this failure.
-commands = ["gcloud storage rm --recursive gs://$BUCKET_NAME --quiet || true"]
+commands = ["gcloud storage buckets delete gs://$BUCKET_NAME --quiet || true"]
 
 [tests.python]
 # We can specify which versions of a language we want to test against.
