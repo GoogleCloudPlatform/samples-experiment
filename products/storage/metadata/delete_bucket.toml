@@ -66,7 +66,7 @@ commands = ["gcloud storage buckets create gs://$BUCKET_NAME"]
 
 [tests.check]
 # Using ! to fail if there is our bucket present in the returned list
-command = "! gcloud storage ls | grep $BUCKET_NAME"
+command = "! gsutil ls | grep $BUCKET_NAME"
 
 [tests.cleanup]
 # Make sure the bucket is deleted. If the command can fail, use `|| true` to supress the failure.
