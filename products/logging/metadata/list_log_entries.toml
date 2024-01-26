@@ -27,7 +27,7 @@ required_permissions = [
 # projects/<project_name>/roles/<role_name>
 # So it is clear that it is a custom role.
 required_roles = [
-    'roles/logging.viewer'
+    'roles/logging.admin'
 ]
 
 [[tests]]
@@ -56,7 +56,8 @@ LOG_MESSAGE = 'Hello World #####'
 # This needs to exit with code 0. If it doesn't the test will fail.
 # If shared_resources = false, this command will be executed for every language separately.
 # If it's true, the command will be executed only once before all the tests.
-commands = ["gcloud logging write $LOGGER_NAME \"$LOG_MESSAGE\" "]
+# We sleep for 10 seconds to make sure the message gets registered properly.
+commands = ["gcloud logging write $LOGGER_NAME \"$LOG_MESSAGE\" && sleep 10"]
 
 [tests.check]
 # Check if the log_message is present in the returned log entries.
@@ -73,8 +74,6 @@ commands = ["gcloud logging logs delete --quiet $LOGGER_NAME"]
 [tests.python]
 # We can specify which versions of a language we want to test against.
 versions = ["3.8", "3.12"]
-# Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
-legacy = false
 file = "../python/snippets.py"
 method = "list_entries"
 # Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
@@ -85,17 +84,13 @@ requirements = "../python/requirements.txt"
 [tests.java]
 # We can specify which versions of a language we want to test against.
 versions = ["11", "17", "21"]
-# Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
-# TODO: We need to make sure the exceptions are thrown from the tests and not sysout/ printed.
-legacy = true
 # Package name of the sample to be tested.
 package_name = "logs"
 # Name of the class can be derived from the file name.
-file = "../java/src/main/java/ListLogEntries.java"
+file = "../java/src/main/java/logs/ListLogEntries.java"
 # The method has to be public and static, so it can be called from outside the class
 method = "main"
 # Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
-# TODO: Is there a use for this field in legacy tests??
 parameters = ["$LOGGER_NAME"]
 # Those packages will be installed before compiling and executing the Java sample.
 pom = "../java/pom.xml"
