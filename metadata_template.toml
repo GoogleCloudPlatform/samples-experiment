@@ -1,4 +1,4 @@
-region_tag = ["<region_Tag>"]  # The region tag of your code sample.
+region_tag = ["<region_Tag>"]  # The region tag(s) of your code sample.
 creation_date = 2023-12-06
 modification_date = 2023-12-06
 title = "Sample title"
@@ -17,6 +17,8 @@ apis = [
     'compute.googleapis.com'
 ]
 # What permissions are needed for the code sample to properly work.
+# If you don't provide any roles in required_roles, those permissions will be used to
+# create a temporary custom role in the project that will be assigned to the test service account.
 required_permissions = [
 #    'storage.objects.update',
 #    'storage.objects.get',
@@ -39,33 +41,38 @@ required_roles = [
 # If set to true, setup and cleanup will happen only once.
 shared_resources = false
 
-# How many tests from this set can be executed at the same time. Needed in case of limited resources.
+# How many tests from this set can be executed at the same time. Needed in case of limited resources (quotas).
 # Different versions of a language are treated as separate language.
 parallel_limit = 16
 
 [tests.variables]
 # The series of #### gets replaced by random string to generate unique IDs.
-# A different value is prepared for each test language. Different versions of a language
-# count as different languages.
+# A different value is prepared for each test session when shared_resource = false.
+# Different versions of a language count as different languages.
+# If shared_resources = true, the variables are the same for every test session.
+# Special variable PROJECT_ID will also be provided, based on the UST_GOOGLE_CLOUD_PROJECT
 TEST_VARIABLE = 'This-is-test-####-value'
 
 [tests.setup]
 # Terraform setup will implicitly execute `terraform init` and `terraform apply`
-# passing all variables from above as `-var="<key> = <value>"
-# Passing the files that are to be applied to set up the environment
+# passing all variables from above as TF_VAR_* environment variables. That way TEST_VARIABLE
+# will be also available as TF_VAR_TEST_VARIABLE, so it's picked up by the Terraform.
+# File paths should be relative to this file's location.
 terraform = []
 # The commands need to exit with code 0. If they don't the test will fail.
-# If shared_resources = false, this command will be executed for every language separately.
-# If it's true, the command will be executed only once before all the tests.
+# If shared_resources == false, these commands will be executed for every test session separately.
+# If shared_resources == true, the commands will be executed only once before all the tests.
 commands = ["echo command1", "echo command2"]
 
 [tests.check]
 # Use $UST_SAMPLE_OUTPUT env variable containing the output of tested sample for checking, or run gcloud and grep over
 # its output.
+# Exit code == 0 means the test passed.
+# To check if a string IS NOT in output: ! echo $UST_SAMPLE_OUTPUT | grep 'some output'
 command = "ls /tmp"
 
 [tests.cleanup]
-# Commands that will be executed after the test container exits. Commands listed here will be executed BEFORE
+# Commands that will be executed after the test containers exit. Commands listed here will be executed BEFORE
 # Terraform destroy is called on the terraform files listed in setup step.
 commands = ["echo Hello!", 'echo "This is cleanup command 2"']
 
