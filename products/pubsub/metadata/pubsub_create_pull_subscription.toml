@@ -63,11 +63,11 @@ PUBSUB_SUBSCRIPTION = 'test-sub-####'
 # passing all variables from above as TF_VAR_* environment variables. That way TEST_VARIABLE
 # will be also available as TF_VAR_TEST_VARIABLE, so it's picked up by the Terraform.
 # File paths should be relative to this file's location.
-terraform = []
+terraform = ["tf/pubsub_create_pull_subscription/create_topic.tf"]
 # The commands need to exit with code 0. If they don't the test will fail.
 # If shared_resources == false, these commands will be executed for every test session separately.
 # If shared_resources == true, the commands will be executed only once before all the tests.
-commands = ["gcloud pubsub topics create $PUBSUB_TOPIC"]
+commands = []
 
 [tests.check]
 # Use $UST_SAMPLE_OUTPUT env variable containing the output of tested sample for checking, or run gcloud and grep over
@@ -80,8 +80,8 @@ command = "gcloud pubsub subscriptions list | grep $PUBSUB_SUBSCRIPTION"
 # Commands that will be executed after the test containers exit. Commands listed here will be executed BEFORE
 # Terraform destroy is called on the terraform files listed in setup step.
 commands = [
-    "gcloud pubsub subscriptions delete --quiet $PUBSUB_SUBSCRIPTION || true",
-    "gcloud pubsub topics delete --quiet $PUBSUB_TOPIC"
+    # This is required, as deleting a topic does not delete the subscriptions.
+    "gcloud pubsub subscriptions delete --quiet $PUBSUB_SUBSCRIPTION || true"
 ]
 
 [tests.python]
