@@ -99,7 +99,7 @@ language:
     python: ['requirements.txt']
     js: ['package.json', 'package-lock.json']
     go: ['go.mod', 'go.sum', 'go.work']
-    java: ['pom.xml']
+    java: ['build.gradle', 'gradle.properties', 'maven', 'maven.bat', 'pom.xml']
 
 requestsize:
   enabled: true
