@@ -1,0 +1,107 @@
+region_tag = ["<region_Tag>"]  # The region tag(s) of your code sample.
+creation_date = 2023-12-06
+modification_date = 2023-12-06
+title = "Sample title"
+description = "Sample description."
+standalone = true
+deprecated = false
+# What kinds of preconditions needs to be met. Natural language. (optional)
+requirements_desc = ""
+# What will happen when the code sample in the region tag gets executed. Natural Language. (optional)
+effects_desc = ""
+
+[requirements]
+# List of services that need to be enabled for the sample (and tests) to work.
+# The system will use `gcloud services enable <api>` to turn them all on.
+apis = [
+    'compute.googleapis.com'
+]
+# What permissions are needed for the code sample to properly work.
+# If you don't provide any roles in required_roles, those permissions will be used to
+# create a temporary custom role in the project that will be assigned to the test service account.
+required_permissions = [
+#    'storage.objects.update',
+#    'storage.objects.get',
+#    'storage.objects.create'
+]
+# What roles can be used to provide neccessary permissions.
+# Those should be predefined roles, but in case you want to use a custom role, use it in the form of:
+# projects/<project_name>/roles/<role_name>
+# So it is clear that it is a custom role.
+required_roles = [
+    'roles/viewer'
+]
+
+
+
+[[tests]]
+# Indicates if the resoruces prepared in the setup section can be shared between tests.
+# This is used to tests that don't alter the resources (i.e. listing PubSub topics).
+# If set to false, setup and cleanup will happen for each language separately.
+# If set to true, setup and cleanup will happen only once.
+shared_resources = false
+
+# How many tests from this set can be executed at the same time. Needed in case of limited resources (quotas).
+# Different versions of a language are treated as separate language.
+parallel_limit = 16
+
+[tests.variables]
+# The series of #### gets replaced by random string to generate unique IDs.
+# A different value is prepared for each test session when shared_resource = false.
+# Different versions of a language count as different languages.
+# If shared_resources = true, the variables are the same for every test session.
+# Special variable PROJECT_ID will also be provided, based on the UST_GOOGLE_CLOUD_PROJECT
+TEST_VARIABLE = 'This-is-test-####-value'
+
+[tests.setup]
+# Terraform setup will implicitly execute `terraform init` and `terraform apply`
+# passing all variables from above as TF_VAR_* environment variables. That way TEST_VARIABLE
+# will be also available as TF_VAR_TEST_VARIABLE, so it's picked up by the Terraform.
+# File paths should be relative to this file's location.
+terraform = []
+# The commands need to exit with code 0. If they don't the test will fail.
+# If shared_resources == false, these commands will be executed for every test session separately.
+# If shared_resources == true, the commands will be executed only once before all the tests.
+commands = ["echo command1", "echo command2"]
+
+[tests.check]
+# Use $UST_SAMPLE_OUTPUT env variable containing the output of tested sample for checking, or run gcloud and grep over
+# its output.
+# Exit code == 0 means the test passed.
+# To check if a string IS NOT in output: ! echo $UST_SAMPLE_OUTPUT | grep 'some output'
+command = "ls /tmp"
+
+[tests.cleanup]
+# Commands that will be executed after the test containers exit. Commands listed here will be executed BEFORE
+# Terraform destroy is called on the terraform files listed in setup step.
+commands = ["echo Hello!", 'echo "This is cleanup command 2"']
+
+[tests.python]
+# We can specify which versions of a language we want to test against. Available: 3.8, 3.9, 3.10, 3.11, 3.12
+versions = ["3.8", "3.12"]
+# Path to Python file with the sample. Relative to this file!
+file = "../python/storage_move_file.py"
+# Name of the method in the file above that will be called to execute the sample.
+method = "move_blob"
+# List of parameters to pass to the method listed above. You can use the variables you defined and $PROJECT_ID
+# that will contain the name of the project in use.
+# Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
+parameters = ["$PROJECT_ID", "$TEST_VARIABLE"]
+# Those packages will be installed before executing the Python sample.
+# Provide a relative path to requirements.txt required by the tested sample.
+requirements = "../python/requirements.txt"
+
+[tests.java]
+# We can specify which versions of a language we want to test against. Available: 11, 17, 21
+versions = ["11", "17", "21"]
+# Package name of the sample to be tested.
+package_name = "package"
+# Provide path to the .java file containing the class and method to be tested.
+# Name of the class can be derived from the file name.
+file = "../java/src/main/java/MoveObject.java"
+# The method has to be public and static, so it can be called from outside the class
+method = "moveObject"
+# Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
+parameters = ["$PROJECT_ID", "$BUCKET_NAME", "$FILE_NAME", "$BUCKET_NAME", "$NEW_FILE_NAME"]
+# Those packages will be installed before compiling and executing the Java sample.
+pom = "../java/pom.xml"

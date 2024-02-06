@@ -1,33 +1,41 @@
-region_tag = ["compute_snapshot_create"]
-creation_date = 2023-12-06
-modification_date = 2023-12-06
-title = "Create disk snapshot."
-description = "Creates a new snapshot of the given zonal/regional disk."
+region_tag = ["storage_delete_bucket"]
+creation_date = 2024-01-23
+modification_date = 2024-01-23
+title = "Delete a storage bucket"
+description = "Deletes a storage bucket from a project."
 standalone = true
 deprecated = false
 # What kinds of preconditions needs to be met. Natural language. (optional)
-requirements_desc = "The disk to be snapshotted should exist."
+requirements_desc = "The bucket must exist... No special requirements or hidden catches here."
 # What will happen when the code sample in the region tag gets executed. Natural Language. (optional)
-effects_desc = "The snapshot gets created in the location specified."
+effects_desc = "The bucket gets deleted."
 
 [requirements]
 # List of services that need to be enabled for the sample (and tests) to work.
 # The system will use `gcloud services enable <api>` to turn them all on.
 apis = [
-    'compute.googleapis.com'
+    'storage.googleapis.com'
 ]
 # What permissions are needed for the code sample to properly work.
 required_permissions = [
-    'compute.snapshots.create',
-    'compute.disks.createSnapshot'
+    'storage.buckets.delete',
+    'storage.buckets.list',
+    'storage.objects.delete',
+    'storage.objects.list',
+    'storage.buckets.create',
+    'storage.buckets.enableObjectRetention',
+    'storage.buckets.list',
+   ' resourcemanager.projects.get'
 ]
 # What roles can be used to provide neccessary permissions.
 # Those should be predefined roles, but in case you want to use a custom role, use it in the form of:
 # projects/<project_name>/roles/<role_name>
 # So it is clear that it is a custom role.
 required_roles = [
-    'roles/compute.instanceAdmin.v1'
+    'roles/storage.admin'
 ]
+
+
 
 [[tests]]
 # Indicates if the resoruces prepared in the setup section can be shared between tests.
@@ -44,37 +52,54 @@ parallel_limit = 16
 # Using a single project for all the languages. Many tests can be run with `parallel = true`, which
 # will speed things up.
 # TODO: Replace the PROJECT_ID with a dynamic value.
-#PROJECT_ID = 'unified-testing-project'
+PROJECT_ID = 'unified-testing-project'
 # The series of #### gets replaced by random string to generate unique IDs.
 # A different value is prepared for each test language. Different versions of a language
 # count as different languages.
+BUCKET_NAME = 'test-bucket-#####-####'
+
+[tests.setup]
+# This needs to exit with code 0. If it doesn't the test will fail.
+# If shared_resources = false, this command will be executed for every language separately.
+# If it's true, the command will be executed only once before all the tests.
+commands = ["gcloud storage buckets create gs://$BUCKET_NAME"]
+
+[tests.check]
+# Using ! to fail if there is our bucket present in the returned list
+command = "! gcloud storage buckets list gs://test-bucket-* | grep $BUCKET_NAME"
+
+[tests.cleanup]
+# Make sure the bucket is deleted. If the command can fail, use `|| true` to supress the failure.
+# In this case, it WILL fail, if the test was successful, so we want to ignore this failure.
+commands = ["gcloud storage buckets delete gs://$BUCKET_NAME --quiet || true"]
 
 [tests.python]
 # We can specify which versions of a language we want to test against.
-versions = ["3.8", "3.12"]
+versions = ["3.9", "3.10", "3.11", "3.12"]
 # Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
-legacy = true
-file = "../python/snapshot/create.py"
-method = "create_snapshot"
-test_file = "../python/snapshot/test_snapshots.py"
-test_method = "test_snapshot_create_delete"
+legacy = false
+file = "../python/bucket/delete.py"
+method = "delete_bucket"
+# Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
+parameters = ["$BUCKET_NAME"]
 # Those packages will be installed before executing the Python sample.
-requirements = "../python/snapshot/requirements.txt"
-requirements_test = "../python/snapshot/requirements-test.txt"
+requirements = "../python/bucket/requirements.txt"
 
 [tests.java]
 # We can specify which versions of a language we want to test against.
 versions = ["11", "17", "21"]
 # Legacy tests skip setup, cleanup and check. They only execute the method pointed to and check if it failed.
-legacy = true
+legacy = false
 # Package name of the sample to be tested.
-package_name = "snapshot"
+package_name = "bucket"
 # Name of the class can be derived from the file name.
-file = "../java/src/main/java/templates/DeleteInstanceTemplate.java"
+file = "../java/src/main/java/bucket/DeleteBucket.java"
 # The method has to be public and static, so it can be called from outside the class
-method = "deleteInstanceTemplate"
-test_file = "../java/src/test/java/snapshot/SnapshotsIT.java"
-# TODO: What if there is no corresponding test method?
-test_method = ""
+method = "deleteBucket"
+# Parameters can be strings, integers and floats. Define appropriate value in TOML - it supports ints and floats!
+parameters = ["$PROJECT_ID", "$BUCKET_NAME"]
 # Those packages will be installed before compiling and executing the Java sample.
 pom = "../java/pom.xml"
+
+
+
