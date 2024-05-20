@@ -12,19 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import subprocess
+from fnmatch import fnmatch
 
 
-def diff_samples(main: str, branch: str) -> list[str]:
-    return []
+def diff_samples(base: str, branch: str, pattern: str = "") -> list[str]:
+    p = subprocess.run(
+        ["git", "diff", "--name-only", base, branch],
+        check=True,
+        stdout=subprocess.PIPE,
+    )
+    files = p.stdout.decode().splitlines()
+    dirs = list({os.path.dirname(f) for f in files if fnmatch(f, f"{pattern}*")})
+    return dirs
 
 
 if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("main", help="main branch")
-    parser.add_argument("branch", help="PR branch")
+    parser.add_argument("base", help="base branch")
+    parser.add_argument("branch", help="pull request branch")
+    parser.add_argument("--pattern", default="", help="glob pattern filter")
     args = parser.parse_args()
 
-    print(diff_samples(args.main, args.branch))
+    print(diff_samples(args.base, args.branch, args.pattern))

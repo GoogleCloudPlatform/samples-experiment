@@ -1,0 +1,26 @@
+name: tools-test
+
+on:
+  push:
+    branches: main
+    paths:
+      - .github/workflows/scripts/tools
+  pull_request:
+    paths:
+      - .github/workflows/scripts/tools
+  workflow_dispatch:  # Manual runs
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .github/workflows/tools
+    steps:
+      - uses: actions/checkout@v4
+      - uses: erlef/setup-beam@v1
+        with:
+          gleam-version: "1.1.0"
+      - run: gleam build
+      - run: gleam test
+      - run: gleam format --check src test
