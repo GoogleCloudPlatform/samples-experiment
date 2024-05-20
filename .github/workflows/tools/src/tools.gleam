@@ -1,5 +1,10 @@
+import argv
 import gleam/io
 
 pub fn main() {
-  io.println("Hello from tools!")
+  case argv.load().arguments {
+    ["diff", ..] -> io.println("diff")
+    [cmd, ..] -> io.println("unknown command: " <> cmd)
+    [] -> Nil
+  }
 }

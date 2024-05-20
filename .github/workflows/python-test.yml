@@ -20,11 +20,14 @@ on:
   pull_request:
   workflow_dispatch:  # Manual runs
 
+env:
+  TOOLS_DIR: .github/workflows/tools
+
 jobs:
   find-diffs:
     runs-on: ubuntu-latest
     # outputs:
-    #   matrix: ${{ steps.find-diffs.outputs.diffs }}
+    #   matrix: ${{steps.find-diffs.outputs.diffs}}
     steps:
       - uses: actions/checkout@v4
       - uses: erlef/setup-beam@v1
@@ -32,13 +35,19 @@ jobs:
           otp-version: "26.0.2"
           gleam-version: "1.1.0"
       - run: git fetch origin
-      - run: gleam build
+      - run: gleam run
+        working-directory: ${{env.TOOLS_DIR}}
       # - id: find-diffs
       #   run: echo "::set-output name=diffs::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
       # - id: diff
       #   run: git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
       - id: diff
-        run: node build/dev/javascript/tools/gleam.main.js
+        run: node ${{env.TOOLS}} diff ${{env.BASE}} ${{env.HEAD}} ${{env.OUTPUT}}
+        env:
+          TOOLS: ${{env.TOOLS_DIR}}/build/dev/javascript/tools/gleam.main.mjs
+          BASE: ${{github.event.pull_request.base.sha}}
+          HEAD: ${{github.event.pull_request.head.sha}}
+          OUTPUT: diffs.json
 
   # python-test:
   #   runs-on: ubuntu-latest
