@@ -1,8 +1,11 @@
+import gleam/io
+
 pub type Process {
   Process(status: Int, stdout: String, stderr: String)
 }
 
 pub fn run(cmd: String, args: List(String)) -> Result(Process, Process) {
+  // let p = spawn("ls", ["-lh"])
   let p = spawn(cmd, args)
   let ret = Process(status: status(p), stdout: stdout(p), stderr: stderr(p))
   case ret.status {
@@ -16,7 +19,7 @@ pub fn run(cmd: String, args: List(String)) -> Result(Process, Process) {
 type ProcessJs
 
 // https://nodejs.org/api/child_process.html#child_processspawnsynccommand-args-options
-@external(javascript, "child_process", "spawnSync")
+@external(javascript, "./_javascript.mjs", "subprocess_spawn")
 fn spawn(cmd: String, args: List(String)) -> ProcessJs
 
 @external(javascript, "./_javascript.mjs", "subprocess_status")
