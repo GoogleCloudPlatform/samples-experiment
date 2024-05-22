@@ -1,0 +1,71 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Test
+
+on:
+  push:
+    branches: main
+  pull_request:
+  workflow_dispatch:  # Manual runs
+
+env:
+  DIFF_TOOL: node .github/workflows/tools/build/dev/javascript/tools/gleam.main.mjs diff 
+
+jobs:
+  find-diffs:
+    runs-on: ubuntu-latest
+    outputs:
+      java-diffs: ${{steps.java.outputs.diffs}}
+      python-diffs: ${{steps.python.outputs.diffs}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: "26.0"
+          gleam-version: "1.1"
+      - run: git fetch origin
+      - run: gleam run
+        working-directory: .github/workflows/tools
+      - name: java-diffs
+        id: java
+        run: echo "diffs=`${{env.DIFF_TOOL}} java ${{github.event.pull_request.base.sha}} ${{github.event.pull_request.head.sha}}`" >> "$GITHUB_OUTPUT"
+      - name: python-diffs
+        id: python
+        run: echo "diffs=`${{env.DIFF_TOOL}} python ${{github.event.pull_request.base.sha}} ${{github.event.pull_request.head.sha}}`" >> "$GITHUB_OUTPUT"
+
+  java:
+    needs: find-diffs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        path: ${{fromJson(needs.find-diffs.outputs.java-diffs)}}
+
+    steps:
+      # - uses: actions/checkout@v4
+      - run: echo ${{matrix.path}}
+
+  python:
+    needs: find-diffs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        path: ${{fromJson(needs.find-diffs.outputs.python-diffs)}}
+
+    steps:
+      # - uses: actions/checkout@v4
+      # - uses: actions/setup-python@v5
+      #   with:
+      #     python-version: 3.11
+      - run: echo ${{matrix.path}}
