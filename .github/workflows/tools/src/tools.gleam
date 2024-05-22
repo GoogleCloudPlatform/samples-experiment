@@ -9,20 +9,20 @@ pub fn main() {
   case args {
     ["diff", ..args] ->
       case args {
-        [base_sha, head_sha] ->
-          case diff.dirs(base_sha, head_sha) {
+        [language, base_sha, head_sha] ->
+          case diff.files(base_sha, head_sha) {
             Ok(dirs) -> {
-              let dirs =
-                list.filter(dirs, fn(x) { string.starts_with(x, "products/") })
-              // ::set-output name=diffs::{"include":[{"project":"foo","config":"Debug"},{"project":"bar","config":"Release"}]}
-              // io.debug(dirs)
-              // io.println("Hello!")
-              io.println("[\"sample1\", \"sample2\"]")
-              Nil
+              let diffs =
+                dirs
+                |> list.filter(fn(x) { string.starts_with(x, "products/") })
+                |> list.filter(fn(x) {
+                  string.contains(x, "/" <> language <> "/")
+                })
+              io.println(string.inspect(diffs))
             }
             Error(e) -> io.println_error("ERROR: " <> e)
           }
-        _ -> io.println("usage: diff <base_sha> <head_sha>")
+        _ -> io.println("usage: diff <language> <base_sha> <head_sha>")
       }
 
     [cmd, ..] -> io.println("unknown command: " <> cmd)

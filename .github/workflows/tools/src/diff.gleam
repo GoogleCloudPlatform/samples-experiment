@@ -8,16 +8,15 @@ pub fn files(base_sha: String, head_sha: String) -> Result(List(String), String)
     Error(p) -> Error(p.stderr)
   }
 }
+// pub fn dirs(base_sha: String, head_sha: String) -> Result(List(String), String) {
+//   case files(base_sha, head_sha) {
+//     Ok(paths) -> Ok(list.unique(list.map(paths, dirname)))
+//     Error(e) -> Error(e)
+//   }
+// }
 
-pub fn dirs(base_sha: String, head_sha: String) -> Result(List(String), String) {
-  case files(base_sha, head_sha) {
-    Ok(paths) -> Ok(list.unique(list.map(paths, dirname)))
-    Error(e) -> Error(e)
-  }
-}
-
-fn dirname(path: String) -> String {
-  let parts = string.split(path, "/")
-  list.take(parts, list.length(parts) - 1)
-  |> string.join("/")
-}
+// fn dirname(path: String) -> String {
+//   let parts = string.split(path, "/")
+//   list.take(parts, list.length(parts) - 1)
+//   |> string.join("/")
+// }
