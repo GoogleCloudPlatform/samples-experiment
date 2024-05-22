@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Python test
+name: Test
 
 on:
   push:
@@ -26,8 +26,8 @@ env:
 jobs:
   find-diffs:
     runs-on: ubuntu-latest
-    # outputs:
-    #   matrix: ${{steps.find-diffs.outputs.diffs}}
+    outputs:
+      diffs: ${{steps.diffs.outputs.DIFFS}}
     steps:
       - uses: actions/checkout@v4
       - uses: erlef/setup-beam@v1
@@ -37,23 +37,21 @@ jobs:
       - run: git fetch origin
       - run: gleam run
         working-directory: ${{env.TOOLS_DIR}}
-      # - id: find-diffs
-      #   run: echo "::set-output name=diffs::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
-      # - id: diff
-      #   run: git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
-      - id: diff
-        run: node ${{env.TOOLS}} diff ${{env.BASE}} ${{env.HEAD}} ${{env.OUTPUT}}
+      - id: diffs
+        run: echo "DIFFS=`${{env.CMD}}`" >> "$GITHUB_OUTPUT"
         env:
-          TOOLS: ${{env.TOOLS_DIR}}/build/dev/javascript/tools/gleam.main.mjs
-          BASE: ${{github.event.pull_request.base.sha}}
-          HEAD: ${{github.event.pull_request.head.sha}}
-          OUTPUT: ${{env.TOOLS_DIR}}/diffs.json
+          CMD: node ${{env.TOOLS_DIR}}/build/dev/javascript/tools/gleam.main.mjs diff ${{github.event.pull_request.base.sha}} ${{github.event.pull_request.head.sha}}
 
-  # python-test:
-  #   runs-on: ubuntu-latest
+  python:
+    needs: find-diffs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        path: ${{fromJson(needs.find-diffs.outputs.diffs)}}
 
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-python@v5
-  #       with:
-  #         python-version: 3.11
+    steps:
+      # - uses: actions/checkout@v4
+      # - uses: actions/setup-python@v5
+      #   with:
+      #     python-version: 3.11
+      - run: echo ${{matrix.path}}

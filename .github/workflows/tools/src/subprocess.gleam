@@ -1,11 +1,8 @@
-import gleam/io
-
 pub type Process {
   Process(status: Int, stdout: String, stderr: String)
 }
 
 pub fn run(cmd: String, args: List(String)) -> Result(Process, Process) {
-  // let p = spawn("ls", ["-lh"])
   let p = spawn(cmd, args)
   let ret = Process(status: status(p), stdout: stdout(p), stderr: stderr(p))
   case ret.status {
