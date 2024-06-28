@@ -1,1 +1,0 @@
-# Copybara test directory
