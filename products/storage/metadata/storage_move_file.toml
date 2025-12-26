@@ -59,7 +59,7 @@ terraform = ["tf/storage_move_file/single_bucket_move.tf"]
 
 [tests.check]
 # Using ! to fail if there is our template present in the returned list
-command = "gsutil ls gs://$BUCKET_NAME/ | grep $NEW_FILE_NAME"
+command = "gcloud storage ls gs://$BUCKET_NAME/ | grep $NEW_FILE_NAME"
 
 [tests.cleanup]
 # Make sure the file is deleted. If the command can fail, use `|| true` to supress the failure.
@@ -67,7 +67,7 @@ command = "gsutil ls gs://$BUCKET_NAME/ | grep $NEW_FILE_NAME"
 # `terraform destroy`. However, since some resources might no longer be under Terraform control, we have an option to
 # execute some commands before `terraform destroy` takes place.
 
-commands = ["gsutil rm -f gs://$BUCKET_NAME/$NEW_FILE_NAME || true"]
+commands = ["gcloud storage rm --continue-on-error gs://$BUCKET_NAME/$NEW_FILE_NAME || true"]
 
 [tests.python]
 # We can specify which versions of a language we want to test against.
@@ -112,10 +112,10 @@ NEW_FILE_NAME = 'test-file-#####'
 terraform = ["tf/storage_move_file/move_between_buckets.tf"]
 
 [tests.check]
-command = "gsutil ls gs://$NEW_BUCKET_NAME/ | grep $NEW_FILE_NAME"
+command = "gcloud storage ls gs://$NEW_BUCKET_NAME/ | grep $NEW_FILE_NAME"
 
 [tests.cleanup]
-commands = ["gsutil rm -f gs://$NEW_BUCKET_NAME/$NEW_FILE_NAME || true"]
+commands = ["gcloud storage rm --continue-on-error gs://$NEW_BUCKET_NAME/$NEW_FILE_NAME || true"]
 
 [tests.python]
 versions = ["3.8", "3.12"]
