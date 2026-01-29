@@ -49,7 +49,7 @@ path:
         eventarc: "eventarc"
         firestore: "firestore"
         functions: "cloudfunctions"
-        healthcare: "healhcare"
+        healthcare: "healthcare"
         iam: "iam"
         iap: "iap"
         iot: "cloudiot"
@@ -96,10 +96,32 @@ language:
   pullrequest: true
   labelprefix: 'lang:'
   extensions:
-    python: ['requirements.txt']
-    js: ['package.json', 'package-lock.json']
+    python: [
+      'requirements.txt', 
+      'pyproject.toml',     
+      'setup.py',           
+      'Pipfile',            
+      'Pipfile.lock',       
+      'poetry.lock'         
+    ]
+    js: [
+      'package.json', 
+      'package-lock.json', 
+      'yarn.lock',          
+      'pnpm-lock.yaml'      
+    ]
     go: ['go.mod', 'go.sum', 'go.work']
-    java: ['pom.xml']
+    java: [
+      'build.gradle', 
+      'build.gradle.kts', 
+      'gradle.properties', 
+      'settings.gradle', 
+      'settings.gradle.kts', 
+      'libs.versions.toml',
+      'mvnw', 
+      'mvnw.cmd', 
+      'pom.xml'
+    ]
 
 requestsize:
   enabled: true
